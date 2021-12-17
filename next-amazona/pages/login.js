@@ -13,15 +13,15 @@ export default function Login() {
   const { redirect } = router.query;
   const { state, dispatch } = React.useContext(Store);
   const { userInfo } = state;
+  const classes = useStyles();
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+
   React.useEffect(() => {
     if (userInfo) {
       router.push('/');
     }
-  }, []);
-
-  const classes = useStyles();
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const submitHandler = async (e) => {
     e.preventDefault();

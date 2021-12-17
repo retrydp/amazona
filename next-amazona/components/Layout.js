@@ -10,7 +10,9 @@ import { useRouter } from 'next/router';
 export default function Layout({ children, title, description }) {
   const { state, dispatch } = useContext(Store);
   const { darkMode, cart, userInfo } = state;
+  const classes = useStyles();
   const router = useRouter();
+  const [anchorEl, setAnchorEl] = React.useState();
   const theme = createTheme({
     typography: {
       h1: {
@@ -34,7 +36,6 @@ export default function Layout({ children, title, description }) {
       },
     },
   });
-  const classes = useStyles();
 
   const darkModeChangeHandler = () => {
     dispatch({
@@ -43,8 +44,6 @@ export default function Layout({ children, title, description }) {
     const newDarkMode = !darkMode;
     Cookies.set('darkMode', newDarkMode ? 'ON' : 'OFF');
   };
-
-  const [anchorEl, setAnchorEl] = React.useState();
 
   const loginClickHandler = (e) => {
     setAnchorEl(e.currentTarget);

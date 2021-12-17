@@ -6,7 +6,6 @@ export default function Shipping() {
   const router = useRouter();
   const { state } = React.useContext(Store);
   const { userInfo } = state;
-
   if (!userInfo) {
     router.push('/login?redirect=/shipping');
   }

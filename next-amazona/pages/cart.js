@@ -21,7 +21,6 @@ function CartScreen() {
       window.alert('Sorry. Product is out of stock');
       return;
     }
-
     dispatch({ type: 'CART_ADD_ITEM', payload: { ...item, quantity } });
   };
 
@@ -38,7 +37,6 @@ function CartScreen() {
       <Typography component="h1" variant="h1">
         Shopping cart
       </Typography>
-
       {cartItems.length === 0 ? (
         <div>
           Cart is empty.
