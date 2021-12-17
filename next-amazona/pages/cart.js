@@ -107,7 +107,7 @@ function CartScreen() {
                   </Typography>
                 </ListItem>
                 <ListItem>
-                  <Button variant="contained" color="primary" fullWidth onClick={checkoutHandler()}>
+                  <Button variant="contained" color="primary" fullWidth onClick={checkoutHandler}>
                     Check Out
                   </Button>
                 </ListItem>
