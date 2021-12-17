@@ -4,7 +4,21 @@ import Layout from '../components/Layout';
 import useStyles from '../utils/styles';
 import NextLink from 'next/link';
 import axios from 'axios';
+import { Store } from '../utils/Store';
+import { useRouter } from 'next/router';
+import Cookies from 'js-cookie';
+
 export default function Login() {
+  const router = useRouter();
+  const { redirect } = router.query;
+  const { state, dispatch } = React.useContext(Store);
+  const { userInfo } = state;
+  React.useEffect(() => {
+    if (userInfo) {
+      router.push('/');
+    }
+  }, []);
+
   const classes = useStyles();
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -13,7 +27,9 @@ export default function Login() {
     e.preventDefault();
     try {
       const { data } = await axios.post('/api/users/login', { email, password });
-      alert('Success login');
+      dispatch({ type: 'USER_LOGIN', payload: data });
+      Cookies.set('userInfo', JSON.stringify(data));
+      router.push(redirect || '/');
     } catch (error) {
       alert(error.response.data ? error.response.data.message : error.message);
     }
