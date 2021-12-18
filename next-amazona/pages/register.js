@@ -7,6 +7,8 @@ import axios from 'axios';
 import { Store } from '../utils/Store';
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
+import { Controller, useForm } from 'react-hook-form';
+import { useSnackbar } from 'notistack';
 
 export default function Register() {
   const router = useRouter();
@@ -14,10 +16,12 @@ export default function Register() {
   const { state, dispatch } = React.useContext(Store);
   const { userInfo } = state;
   const classes = useStyles();
-  const [name, setName] = React.useState('');
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [confirmPassword, setConfirmPassword] = React.useState('');
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm();
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   React.useEffect(() => {
     if (userInfo) {
@@ -25,10 +29,10 @@ export default function Register() {
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const submitHandler = async (e) => {
-    e.preventDefault();
+  const submitHandler = async ({ email, password, name, confirmPassword }) => {
+    closeSnackbar();
     if (password !== confirmPassword) {
-      alert('Passwords don`t match');
+      enqueueSnackbar('Passwords don`t match', { variant: 'error' });
       return;
     }
     try {
@@ -41,35 +45,108 @@ export default function Register() {
       Cookies.set('userInfo', JSON.stringify(data));
       router.push(redirect || '/');
     } catch (error) {
-      alert(error.response.data ? error.response.data.message : error.message);
+      enqueueSnackbar(error.response.data ? error.response.data.message : error.message, { variant: 'error' });
     }
   };
 
   return (
     <Layout title="Register">
-      <form className={classes.form} onSubmit={submitHandler}>
+      <form className={classes.form} onSubmit={handleSubmit(submitHandler)}>
         <Typography variant="h1" component="h1">
           Register
         </Typography>
         <List>
           <ListItem>
-            <TextField variant="outlined" fullWidth id="name" label="Name" inputProps={{ type: 'name' }} onChange={(e) => setName(e.target.value)}></TextField>
+            <Controller
+              name="name"
+              control={control}
+              defaultValue=""
+              rules={{
+                required: true,
+                minLength: 2,
+              }}
+              render={({ field }) => (
+                <TextField
+                  variant="outlined"
+                  fullWidth
+                  id="name"
+                  label="Name"
+                  inputProps={{ type: 'name' }}
+                  error={Boolean(errors.name)}
+                  helperText={errors.name ? (errors.name.type === 'minLength' ? 'Name is to short' : 'Name is required') : ''}
+                  {...field}
+                ></TextField>
+              )}
+            ></Controller>
           </ListItem>
           <ListItem>
-            <TextField variant="outlined" fullWidth id="email" label="Email" inputProps={{ type: 'email' }} onChange={(e) => setEmail(e.target.value)}></TextField>
+            <Controller
+              name="email"
+              control={control}
+              defaultValue=""
+              rules={{
+                required: true,
+                pattern: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
+              }}
+              render={({ field }) => (
+                <TextField
+                  variant="outlined"
+                  fullWidth
+                  id="email"
+                  label="Email"
+                  inputProps={{ type: 'email' }}
+                  error={Boolean(errors.email)}
+                  helperText={errors.email ? (errors.email.type === 'pattern' ? 'Email is not valid' : 'Email is required') : ''}
+                  {...field}
+                ></TextField>
+              )}
+            ></Controller>
           </ListItem>
           <ListItem>
-            <TextField variant="outlined" fullWidth id="password" label="Password" inputProps={{ type: 'password' }} onChange={(e) => setPassword(e.target.value)}></TextField>
+            <Controller
+              name="password"
+              control={control}
+              defaultValue=""
+              rules={{
+                required: true,
+                minLength: 6,
+              }}
+              render={({ field }) => (
+                <TextField
+                  variant="outlined"
+                  fullWidth
+                  id="password"
+                  label="Password"
+                  inputProps={{ type: 'password' }}
+                  error={Boolean(errors.password)}
+                  helperText={errors.password ? (errors.password.type === 'minLength' ? 'Password is too short' : 'Password is required') : ''}
+                  {...field}
+                ></TextField>
+              )}
+            ></Controller>
           </ListItem>
           <ListItem>
-            <TextField
-              variant="outlined"
-              fullWidth
-              id="confirmPassword"
-              label="Confirm password"
-              inputProps={{ type: 'confirmPassword' }}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-            ></TextField>
+            <Controller
+              name="confirmPassword"
+              control={control}
+              defaultValue=""
+              rules={{
+                required: true,
+                minLength: 6,
+              }}
+              render={({ field }) => (
+                <TextField
+                  variant="outlined"
+                  fullWidth
+                  id="confirmPassword"
+                  label="Confirm Password"
+                  inputProps={{ type: 'password' }}
+                  error={Boolean(errors.confirmPassword)}
+                  helperText={errors.confirmPassword ? (errors.confirmPassword.type === 'minLength' ? 'Confirm Password is too short' : 'Password is required') : ''}
+                  {...field}
+                ></TextField>
+              )}
+            ></Controller>
           </ListItem>
           <ListItem>
             <Button variant="contained" type="submit" fullWidth color="primary">
