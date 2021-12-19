@@ -6,7 +6,7 @@ import { Store } from '../utils/Store';
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
 import { Controller, useForm } from 'react-hook-form';
-import CheckoutWizzard from '../components/checkoutWizzard';
+import CheckoutWizzard from '../components/CheckoutWizzard';
 
 export default function Shipping() {
   const router = useRouter();
