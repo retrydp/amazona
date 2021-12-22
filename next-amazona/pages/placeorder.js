@@ -84,7 +84,9 @@ function PlaceOrder() {
                   Shipping Address
                 </Typography>
               </ListItem>
-              <ListItem>{Object.values(shippingAddress).join(', ')}</ListItem>
+              <ListItem>
+                {shippingAddress?.fullName}, {shippingAddress?.address}, {shippingAddress?.city}, {shippingAddress?.postalCode}, {shippingAddress?.country}
+              </ListItem>
             </List>
           </Card>
           <Card className={classes.section}>

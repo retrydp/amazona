@@ -28,7 +28,7 @@ export default function Shipping() {
       router.push('/login?redirect=/shipping');
     }
 
-    ['fullName', 'address', 'city', 'postalCode', 'country'].forEach((el) => setValue(el, shippingAddress[el]));
+    ['fullName', 'address', 'city', 'postalCode', 'country'].forEach((el) => setValue(el, shippingAddress?.[el]));
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const submitHandler = ({ fullName, address, city, postalCode, country }) => {
