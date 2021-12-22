@@ -42,6 +42,7 @@ function PlaceOrder() {
     closeSnackbar();
     try {
       setLoading(true);
+
       const { data } = await axios.post(
         '/api/orders',
         {
@@ -70,7 +71,7 @@ function PlaceOrder() {
   };
 
   return (
-    <Layout title="Shopping cart">
+    <Layout title="Place Order">
       <CheckoutWizzard activeStep={3}></CheckoutWizzard>
       <Typography component="h1" variant="h1">
         Place Order
@@ -85,7 +86,7 @@ function PlaceOrder() {
                 </Typography>
               </ListItem>
               <ListItem>
-                {shippingAddress?.fullName}, {shippingAddress?.address}, {shippingAddress?.city}, {shippingAddress?.postalCode}, {shippingAddress?.country}
+                {shippingAddress.fullName}, {shippingAddress.address}, {shippingAddress.city}, {shippingAddress.postalCode}, {shippingAddress.country}
               </ListItem>
             </List>
           </Card>
