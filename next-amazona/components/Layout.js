@@ -51,7 +51,7 @@ export default function Layout({ children, title, description }) {
 
   const loginMenuCloseHandler = (e, redirect) => {
     setAnchorEl(null);
-    if (redirect) {
+    if (redirect !== 'backdropClick') {
       router.push(redirect);
     }
   };
@@ -110,7 +110,9 @@ export default function Layout({ children, title, description }) {
                     }}
                   >
                     <MenuItem onClick={(e) => loginMenuCloseHandler(e, '/profile')}>Profile</MenuItem>
+
                     <MenuItem onClick={(e) => loginMenuCloseHandler(e, '/order-history')}>Order History</MenuItem>
+                    {userInfo.isAdmin && <MenuItem onClick={(e) => loginMenuCloseHandler(e, '/admin/dashboard')}>Admin Dashboard</MenuItem>}
                     <MenuItem onClick={logoutClickHandler}>Logout</MenuItem>
                   </Menu>
                 </>
