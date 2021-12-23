@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import { getError } from '../utils/error';
 import { Store } from '../utils/Store';
-import { Typography, Grid, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Link, Card, List, ListItem, CircularProgress, Button, ListItemText } from '@material-ui/core';
+import { Typography, Grid, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Card, List, ListItem, CircularProgress, Button, ListItemText } from '@material-ui/core';
 import Layout from '../components/Layout';
 import useStyles from '../utils/styles';
 import NextLink from 'next/link';
@@ -98,9 +98,8 @@ function OrderHistory() {
                       </TableHead>
                       <TableBody>
                         {orders.map((order) => (
-                          <TableRow key={order.id}>
+                          <TableRow key={order._id}>
                             <TableCell>{order._id.substring(20, 24)}</TableCell>
-
                             <TableCell>{order.createdAt}</TableCell>
                             <TableCell>${order.totalPrice}</TableCell>
                             <TableCell>{order.isPaid ? `paid at ${order.paidAt}` : 'not paid'}</TableCell>
