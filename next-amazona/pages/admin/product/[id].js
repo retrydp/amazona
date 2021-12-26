@@ -282,7 +282,7 @@ function ProductEdit({ params }) {
                     </ListItem>
                     <ListItem>
                       <Button variant="contained" component="label">
-                        Upload File{' '}
+                        Upload File
                         <input type="file" onChange={uploadHandler} hidden />
                       </Button>
                       {loadingUpload && <CircularProgress />}

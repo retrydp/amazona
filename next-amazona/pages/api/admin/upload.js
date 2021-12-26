@@ -21,7 +21,7 @@ const handler = nc({ onError });
 const upload = multer();
 
 handler.use(isAuth, isAdmin, upload.single('file'));
-handler.post(async (req, res) => {
+handler.post(async (req, res, next) => {
   const streamUpload = (req) => {
     return new Promise((resolve, reject) => {
       const stream = cloudinary.uploader.upload_stream((error, result) => {
@@ -32,8 +32,9 @@ handler.post(async (req, res) => {
       streamifier.createReadStream(req.file.buffer).pipe(stream);
     });
   };
-  const result = await streamUpload(req);
-  res.send(result);
+  await streamUpload(req)
+    .then((result) => res.send(result))
+    .catch((err) => next(err));
 });
 
 export default handler;
