@@ -4,7 +4,16 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import { getError } from '../utils/error';
 import { Store } from '../utils/Store';
-import { Typography, Grid, Card, List, ListItem, Button, ListItemText, TextField } from '@material-ui/core';
+import {
+  Typography,
+  Grid,
+  Card,
+  List,
+  ListItem,
+  Button,
+  ListItemText,
+  TextField,
+} from '@material-ui/core';
 import Layout from '../components/Layout';
 import useStyles from '../utils/styles';
 import NextLink from 'next/link';
@@ -50,7 +59,6 @@ function Profile() {
       Cookies.set('userInfo', JSON.stringify(data));
       enqueueSnackbar('Profile updated successfully', { variant: 'success' });
     } catch (error) {
-      console.log(error.response);
       enqueueSnackbar(getError(error), { variant: 'error' });
     }
   };
@@ -91,7 +99,10 @@ function Profile() {
                 </Typography>
               </ListItem>
               <ListItem>
-                <form className={classes.form} onSubmit={handleSubmit(submitHandler)}>
+                <form
+                  className={classes.form}
+                  onSubmit={handleSubmit(submitHandler)}
+                >
                   <List>
                     <ListItem>
                       <Controller
@@ -110,7 +121,13 @@ function Profile() {
                             label="Name"
                             inputProps={{ type: 'name' }}
                             error={Boolean(errors.name)}
-                            helperText={errors.name ? (errors.name.type === 'minLength' ? 'Name is to short' : 'Name is required') : ''}
+                            helperText={
+                              errors.name
+                                ? errors.name.type === 'minLength'
+                                  ? 'Name is to short'
+                                  : 'Name is required'
+                                : ''
+                            }
                             {...field}
                           ></TextField>
                         )}
@@ -133,7 +150,13 @@ function Profile() {
                             label="Email"
                             inputProps={{ type: 'email' }}
                             error={Boolean(errors.email)}
-                            helperText={errors.email ? (errors.email.type === 'pattern' ? 'Email is not valid' : 'Email is required') : ''}
+                            helperText={
+                              errors.email
+                                ? errors.email.type === 'pattern'
+                                  ? 'Email is not valid'
+                                  : 'Email is required'
+                                : ''
+                            }
                             {...field}
                           ></TextField>
                         )}
@@ -145,7 +168,10 @@ function Profile() {
                         control={control}
                         defaultValue=""
                         rules={{
-                          validate: (value) => value === '' || value.length > 5 || 'Password length is more than 5',
+                          validate: (value) =>
+                            value === '' ||
+                            value.length > 5 ||
+                            'Password length is more than 5',
                         }}
                         render={({ field }) => (
                           <TextField
@@ -155,7 +181,9 @@ function Profile() {
                             label="Password"
                             inputProps={{ type: 'password' }}
                             error={Boolean(errors.password)}
-                            helperText={errors.password ? 'Password is too short' : ''}
+                            helperText={
+                              errors.password ? 'Password is too short' : ''
+                            }
                             {...field}
                           ></TextField>
                         )}
@@ -167,7 +195,10 @@ function Profile() {
                         control={control}
                         defaultValue=""
                         rules={{
-                          validate: (value) => value === '' || value.length > 5 || 'Confirm length is more than 5',
+                          validate: (value) =>
+                            value === '' ||
+                            value.length > 5 ||
+                            'Confirm length is more than 5',
                         }}
                         render={({ field }) => (
                           <TextField
@@ -177,14 +208,23 @@ function Profile() {
                             label="Confirm Password"
                             inputProps={{ type: 'password' }}
                             error={Boolean(errors.confirmPassword)}
-                            helperText={errors.password ? 'Confirm password is too short' : ''}
+                            helperText={
+                              errors.password
+                                ? 'Confirm password is too short'
+                                : ''
+                            }
                             {...field}
                           ></TextField>
                         )}
                       ></Controller>
                     </ListItem>
                     <ListItem>
-                      <Button variant="contained" type="submit" fullWidth color="primary">
+                      <Button
+                        variant="contained"
+                        type="submit"
+                        fullWidth
+                        color="primary"
+                      >
                         Update
                       </Button>
                     </ListItem>

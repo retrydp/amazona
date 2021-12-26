@@ -3,7 +3,18 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import NextLink from 'next/link';
 import React, { useEffect, useContext, useReducer } from 'react';
-import { CircularProgress, Grid, List, ListItem, Typography, Card, Button, ListItemText, CardContent, CardActions } from '@material-ui/core';
+import {
+  CircularProgress,
+  Grid,
+  List,
+  ListItem,
+  Typography,
+  Card,
+  Button,
+  ListItemText,
+  CardContent,
+  CardActions,
+} from '@material-ui/core';
 import { Bar } from 'react-chartjs-2';
 import { Chart } from 'chart.js';
 import * as Chartjs from 'chart.js';
@@ -12,7 +23,9 @@ import { Store } from '../../utils/Store';
 import Layout from '../../components/Layout';
 import useStyles from '../../utils/styles';
 
-const controllers = Object.values(Chartjs).filter((chart) => chart.id !== undefined);
+const controllers = Object.values(Chartjs).filter(
+  (chart) => chart.id !== undefined
+);
 Chart.register(...controllers);
 
 function reducer(state, action) {
@@ -73,6 +86,11 @@ function AdminDashboard() {
                   <ListItemText primary="Orders"></ListItemText>
                 </ListItem>
               </NextLink>
+              <NextLink href="/admin/products" passHref>
+                <ListItem button component="a">
+                  <ListItemText primary="Products"></ListItemText>
+                </ListItem>
+              </NextLink>
             </List>
           </Card>
         </Grid>
@@ -89,7 +107,9 @@ function AdminDashboard() {
                     <Grid item md={3}>
                       <Card raised>
                         <CardContent>
-                          <Typography variant="h1">${summary.ordersPrice}</Typography>
+                          <Typography variant="h1">
+                            ${summary.ordersPrice}
+                          </Typography>
                           <Typography>Sales</Typography>
                         </CardContent>
                         <CardActions>
@@ -104,7 +124,9 @@ function AdminDashboard() {
                     <Grid item md={3}>
                       <Card raised>
                         <CardContent>
-                          <Typography variant="h1">{summary.ordersCount}</Typography>
+                          <Typography variant="h1">
+                            {summary.ordersCount}
+                          </Typography>
                           <Typography>Orders</Typography>
                         </CardContent>
                         <CardActions>
@@ -119,7 +141,9 @@ function AdminDashboard() {
                     <Grid item md={3}>
                       <Card raised>
                         <CardContent>
-                          <Typography variant="h1">{summary.productsCount}</Typography>
+                          <Typography variant="h1">
+                            {summary.productsCount}
+                          </Typography>
                           <Typography>Products</Typography>
                         </CardContent>
                         <CardActions>
@@ -134,7 +158,9 @@ function AdminDashboard() {
                     <Grid item md={3}>
                       <Card raised>
                         <CardContent>
-                          <Typography variant="h1">{summary.usersCount}</Typography>
+                          <Typography variant="h1">
+                            {summary.usersCount}
+                          </Typography>
                           <Typography>Users</Typography>
                         </CardContent>
                         <CardActions>

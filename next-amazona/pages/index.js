@@ -1,6 +1,15 @@
 import { useContext } from 'react';
 import NextLink from 'next/link';
-import { Card, CardActionArea, CardMedia, Grid, CardContent, Typography, CardActions, Button } from '@material-ui/core';
+import {
+  Card,
+  CardActionArea,
+  CardMedia,
+  Grid,
+  CardContent,
+  Typography,
+  CardActions,
+  Button,
+} from '@material-ui/core';
 import Layout from '../components/Layout';
 import db from '../utils/db';
 import Product from '../models/Product';
@@ -35,7 +44,11 @@ export default function Home(props) {
               <Card>
                 <NextLink href={`/product/${product.slug}`} passHref>
                   <CardActionArea>
-                    <CardMedia component="img" image={product.image} title={product.name}></CardMedia>
+                    <CardMedia
+                      component="img"
+                      image={product.image}
+                      title={product.name}
+                    ></CardMedia>
                     <CardContent>
                       <Typography>{product.name}</Typography>
                     </CardContent>
@@ -43,7 +56,11 @@ export default function Home(props) {
                 </NextLink>
                 <CardActions>
                   <Typography>${product.price}</Typography>
-                  <Button size="small" color="primary" onClick={() => addToCartHandler(product)}>
+                  <Button
+                    size="small"
+                    color="primary"
+                    onClick={() => addToCartHandler(product)}
+                  >
                     Add to cart
                   </Button>
                 </CardActions>
@@ -59,7 +76,7 @@ export default function Home(props) {
 export async function getServerSideProps() {
   await db.connect();
   const products = await Product.find({}).lean();
-  console.log(products);
+
   await db.disconnect();
   return {
     props: { products: products.map(db.convertDocToObj) },
