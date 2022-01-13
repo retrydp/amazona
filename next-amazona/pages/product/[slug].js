@@ -1,7 +1,15 @@
 import React, { useContext } from 'react';
 import NextLink from 'next/link';
 import Image from 'next/image';
-import { Grid, Link, List, ListItem, Typography, Card, Button } from '@material-ui/core';
+import {
+  Grid,
+  Link,
+  List,
+  ListItem,
+  Typography,
+  Card,
+  Button,
+} from '@material-ui/core';
 import Layout from '../../components/Layout';
 import useStyles from '../../utils/styles';
 import Product from '../../models/Product';
@@ -41,7 +49,13 @@ export default function ProductScreen(props) {
       </div>
       <Grid container spacing={1}>
         <Grid item md={6} xs={12}>
-          <Image src={product.image} alt={product.name} width={640} height={640} layout="responsive"></Image>
+          <Image
+            src={product.image}
+            alt={product.name}
+            width={640}
+            height={640}
+            layout="responsive"
+          ></Image>
         </Grid>
         <Grid item md={3} xs={12}>
           <List>
@@ -85,12 +99,19 @@ export default function ProductScreen(props) {
                     <Typography>Status</Typography>
                   </Grid>
                   <Grid item xs={6}>
-                    <Typography>{product.countInStock > 0 ? 'In stock' : 'Unavailable'}</Typography>
+                    <Typography>
+                      {product.countInStock > 0 ? 'In stock' : 'Unavailable'}
+                    </Typography>
                   </Grid>
                 </Grid>
               </ListItem>
               <ListItem>
-                <Button fullWidth variant="contained" color="primary" onClick={addToCartHandler}>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  onClick={addToCartHandler}
+                >
                   Add to cart
                 </Button>
               </ListItem>
